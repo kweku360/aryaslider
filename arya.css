@@ -1,0 +1,19 @@
+.arya-slides{
+display: none
+}
+.arya-slides section img{
+ width:300px;
+    height: auto;
+}
+.arya-content{
+    margin: 0 auto;
+    width: 60%;
+    height: 40%;
+    border: 2px solid #f8e5e5;
+    overflow: hidden;
+    
+}
+.arya-content section img{
+ width:300px;
+    height: auto;
+}

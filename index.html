@@ -1,0 +1,76 @@
+<!--
+Original Author : Kweku Okyere Kankam
+Date : 16th September 2014
+License : open
+(c) Copyright by Kfive Interective.
+Description : ARYA responsive Jquery Slider Plugin (html testpage)
+Version : 0.1
+Tags : jquery, kweku360, css, Html5, web,css,sass,mobile,responsive,slider
+-->
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arya slider plugin</title>
+    <!--    les css-->
+    <link rel="stylesheet" href="arya.css" />
+    <!--    CDN Goes Here just in case-->
+    <!--    le mordenizer-->
+
+</head>
+
+<body>
+
+
+    <div class="row">
+        <div id="k5-top" class="small-12 large-12 columns">
+
+
+        </div>
+
+        <div id="k5-content" class="small-12 large-8 columns">
+
+            <div class="row">
+                <!-- slider-->
+                <div class='arya-slider'>
+                    <!-- content-->
+                    <div class="arya-content">
+                    </div>
+                    <!-- slides-->
+                    <div class="arya-slides">
+                        <section><img src="images/img1.jpg"</section>
+                        <section><img src="images/img2.jpg"</section>
+                        <section><img src="images/img3.jpg"</section>
+                        <section><img src="images/img4.jpg"</section>
+                        <section><img src="images/img5.jpg"</section>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="k5-content-logo" class="large-6 small-3 columns"></div>
+                <div id="k5-content-text" class="large-6 columns"></div>
+            </div>
+
+        </div>
+        <div id="k5-footer" class="small-12 large-12 columns">
+
+        </div>
+    </div>
+    <!--main layout row-->
+
+    <script src="jquery-1.11.1.js"></script>
+    <script src="arya.js"></script>
+
+    <script>
+        /*        $(document).ready(function () {
+            alert("heelo slider");
+        });*/
+        $(".arya-slider").arya();
+    </script>
+</body>
+
+</html>
