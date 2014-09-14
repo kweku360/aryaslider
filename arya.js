@@ -20,8 +20,8 @@ Version : 0.1
                 slidearray.push(elem);
                 console.log(index);
             });
-            //step 2 : hide arya-slide
-            el.find(".arya-slides").hide();
+            //step 2 : hide arya-slide (done in css
+            //el.find(".arya-slides").hide();
             //step 3 : show/prepare arya content div
             var contentel = el.find(".arya-content")
             $(contentel).css({
@@ -29,21 +29,31 @@ Version : 0.1
 //                height: "auto",
             })
             //step 4 lets try the slide and see
-            var i = 0 // counter for slider
+            var i = 1 // counter for slider
+            //hack
+           // run first slide while waiting for interval to kick in
+            $(contentel).html(slidearray[0])
             setInterval(
                 function () {
 
                     if (i < slidearray.length) {
-                       
-                        $(contentel).hide().html(slidearray[i]).fadeIn(1000);
+                        //clear content 
+                        $(contentel).html("")
+                       //Animations
+                        //one
+                        //$(contentel).fadeOut(500).html(slidearray[i]).fadeIn(1000);
+                        //two
+                        $(contentel).hide().html(slidearray[i]).slideDown(1000);
                          i++;
                     } else {
                         i = 0;
                     }
                     
-                }, 2000)
+                }, 5000)
 
-            return slidearray;
+            //step 5 : Lets add some pagination
+            //first lets create the div
+            
         }
         //Options and settings
 
