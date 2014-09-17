@@ -46,12 +46,13 @@ Version : 0.1
                     console.log(contentel.html())
                     contentel.find("section#" + i).last().css({
                         position: 'absolute',
-                        top: 0,
+                        top: opt.width,
                         left: opt.width,
                         width: "100%",
                         height: "100%"
                     }).addClass("animated").animate({
                         left:"-="+opt.width,
+                        top:"-="+opt.height,
                         //width: "100%",
                        // height: "100%"
                     }, 1000)
