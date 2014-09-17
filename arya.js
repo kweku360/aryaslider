@@ -32,33 +32,37 @@ Version : 0.1
             var i = 1 // counter for slider
                 //hack
                 // run first slide while waiting for interval to kick in
-            $("#page0").addClass("active");
+           
             $(contentel).html(slidearray[0]);
+            var aryaslide = function () {
+                if (i < slidearray.length) {
 
-            setInterval(
-                function () {
+                    //clear content 
+                    $(contentel).html("")
+                    //Animations
+                    //one
+                    //$(contentel).fadeOut(500).html(slidearray[i]).fadeIn(1000);
+                    //two
+                    $(contentel).hide().html(slidearray[i]).slideDown(opt.slidespeed);
+                    // var target = opt.transitioneffect;
+                    // if (jQuery.isFunction(target)) {
+                    // $(contentel).hide().html(slidearray[i])[target](opt.slidespeed);
+                    //                        }
 
-                    if (i < slidearray.length) {
+                    var k = i - 1;
+                    $("#page" + k).removeClass("active");
+                    $("#page" + i).addClass("active");
 
-                        //clear content 
-                        $(contentel).html("")
-                        //Animations
-                        //one
-                        //$(contentel).fadeOut(500).html(slidearray[i]).fadeIn(1000);
-                        //two
-                        $(contentel).hide().html(slidearray[i]).slideDown(opt.slidespeed);
-                        var k = i - 1;
-                        $("#page" + k).removeClass("active");
-                        $("#page" + i).addClass("active");
+                    i++;
+                } else {
+                    var k = i - 1;
+                    $("#page" + k).removeClass("active");
+                    i = 0;
+                }
 
-                        i++;
-                    } else {
-                        var k = i - 1;
-                        $("#page" + k).removeClass("active");
-                        i = 0;
-                    }
+            }
 
-                }, opt.slideduration)
+            var timer = setInterval(aryaslide, opt.slideduration)
 
             //step 5 : Lets add some pagination
             //first lets create the div
@@ -73,16 +77,35 @@ Version : 0.1
                 var j = k + 1
                 $("#arya-pagination").append('<a href="#" id="page' + k + '" class="page">' + j + '</a>')
             }
+            $("#page0").addClass("active");
+
+            //Step 6 : Lets Handle Click Events
+            el.click(function (e) {
+                if (e.target.className.indexOf('page') !== -1) {
+                    var spli = e.target.id.split('e');
+                    var l = spli[1];
+                    $(contentel).hide().html(slidearray[l]).slideDown(opt.slidespeed);
+                    var k = i - 1;
+                    $("#page" + k).removeClass("active");
+                    $("#page" + l).addClass("active");
+
+                    clearInterval(timer);
+                    i = l;
+                    timer = setInterval(aryaslide, opt.slideduration);
+
+                }
+            });
+
 
 
         }
         //Options and settings
     var defaultoptions = {
-        width: "800px", //width of slider
-        height: "600px",//height of slider
-        slideduration : 1000,//time for each slide (in milliseconds)
-        slidespeed : 500, // slide transition speed(in milliseconds)
-        transitioneffect : "fadeIn",//current options : fadein,slideup,slidedown(more work needed here)
+        width: "900px", //width of slider
+        height: "600px", //height of slider
+        slideduration: 3000, //time for each slide (in milliseconds)
+        slidespeed: 1000, // slide transition speed(in milliseconds)
+        transitioneffect: "slideDown", //current options : fadein,slideup,slidedown(more work needed here)
     }
 
     //Main function
