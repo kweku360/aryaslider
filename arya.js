@@ -47,12 +47,13 @@ Version : 0.1
                     contentel.find("section#" + i).last().css({
                         position: 'absolute',
                         top: 0,
-                        left: 0,
-                        width: "0px",
-                        height: "0px"
-                    }).addClass("animated").animate({
+                        left: opt.width,
                         width: "100%",
                         height: "100%"
+                    }).addClass("animated").animate({
+                        left:"-="+opt.width,
+                        //width: "100%",
+                       // height: "100%"
                     }, 1000)
 
 
