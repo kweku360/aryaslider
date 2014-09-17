@@ -17,7 +17,7 @@ Version : 0.1
             //step 1:find arya-slides and put into array
             var slidearray = []
             el.find(".arya-slides section").each(function (index, elem) {
-                 myelem = $(elem).attr("id", index)
+                myelem = $(elem).attr("id", index)
                 //this nice code does wonders..lol..basically allows me to add ids to each section or page
                 var elem = $('<div>').append(myelem.clone()).html()
 
@@ -44,20 +44,24 @@ Version : 0.1
                 if (i < slidearray.length) {
                     contentel.append(slidearray[i]);
                     console.log(contentel.html())
-                    contentel.find("section#" + i).last().css({
+                    var animel = contentel.find("section#" + i).last().css({
                         position: 'absolute',
-                        top: opt.width,
-                        left: opt.width,
-                        width: "100%",
+                        top: 0,
+                        left: 0,
+                        
+                        width: "0px",
                         height: "100%"
-                    }).addClass("animated").animate({
-                        left:"-="+opt.width,
-                        top:"-="+opt.height,
-                        //width: "100%",
-                       // height: "100%"
-                    }, 1000)
-
-
+                    }).addClass("animated")
+                    for (var x=0; x < 5; x++) {
+                        animel.animate({
+                            left:x*100,
+                            width: "100%",
+                        }, 200)
+                        animel.animate({
+                            left:x*20,
+                            width: "100%",
+                        }, 100)
+                    }
                     $("#page" + i).addClass("active");
 
                     i++;
@@ -65,9 +69,8 @@ Version : 0.1
                         el.find(".animated:not(:last)").remove();
                         i = 0;
                     }
-                }
-                else{
-                i = 0;//solves pagination click for last page ..hmmmm
+                } else {
+                    i = 0; //solves pagination click for last page ..hmmmm
                 }
 
             }
@@ -138,7 +141,7 @@ Version : 0.1
         transitioneffect: "slideDown", //current options : fadein,slideup,slidedown(more work needed here)
         pagination: true, // show pagination true / false
         autostart: true // start slide on page load true false
-        
+
         //completed anims : cornerslide
 
     }
