@@ -17,6 +17,10 @@ Version : 0.1
             //step 1:find arya-slides and put into array
             var slidearray = []
             el.find(".arya-slides section").each(function (index, elem) {
+                 myelem = $(elem).attr("id", index)
+                //this nice code does wonders..lol..basically allows me to add ids to each section or page
+                var elem = $('<div>').append(myelem.clone()).html()
+
                 slidearray.push(elem);
 
             });
@@ -34,33 +38,34 @@ Version : 0.1
                 //hack
                 // run first slide while waiting for interval to kick in
 
-            $(contentel).html(slidearray[0]);
+            $(contentel).append(slidearray[0]);
             var aryaslide = function () {
                 el.find(".active").removeClass("active");
                 if (i < slidearray.length) {
+                    contentel.append(slidearray[i]);
+                    console.log(contentel.html())
+                    contentel.find("section#" + i).last().css({
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: "0px",
+                        height: "0px"
+                    }).addClass("animated").animate({
+                        width: "100%",
+                        height: "100%"
+                    }, 1000)
 
-                    //clear content 
-                    $(contentel).html("")
-                    //Animations
-                    //one
-                    //$(contentel).fadeOut(500).html(slidearray[i]).fadeIn(1000);
-                    //two
-                    $(contentel).hide().html(slidearray[i]).slideDown(opt.slidespeed);
-                    // var target = opt.transitioneffect;
-                    // if (jQuery.isFunction(target)) {
-                    // $(contentel).hide().html(slidearray[i])[target](opt.slidespeed);
-                    //                        }
-
-                    //var k = i - 1;
-                    //$("#page" + k).removeClass("active");
 
                     $("#page" + i).addClass("active");
-                    console.log(i);
+
                     i++;
                     if (i == slidearray.length) {
-                        
+                        el.find(".animated:not(:last)").remove();
                         i = 0;
                     }
+                }
+                else{
+                i = 0;//solves pagination click for last page ..hmmmm
                 }
 
             }
@@ -103,7 +108,8 @@ Version : 0.1
                     //and start the timer again
                     var spli = e.target.id.split('e');
                     var l = spli[1];
-                    $(contentel).hide().html(slidearray[l]).slideDown(opt.slidespeed);
+                    i = parseInt(l) //new for cornerslider
+                    aryaslide();
                     el.find(".active").removeClass("active");
                     $("#page" + l).addClass("active");
                     i = parseInt(l) + 1;
@@ -130,6 +136,8 @@ Version : 0.1
         transitioneffect: "slideDown", //current options : fadein,slideup,slidedown(more work needed here)
         pagination: true, // show pagination true / false
         autostart: true // start slide on page load true false
+        
+        //completed anims : cornerslide
 
     }
 
