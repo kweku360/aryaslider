@@ -1,6 +1,6 @@
 /*
 Original Author : Kweku Okyere Kankam
-Date : 16th September 2014
+OriginalDate : 16th September 2014
 License : open
 (c) Copyright by Kfive Interective.
 Description : ARYA responsive Jquery Slider Plugin
@@ -25,7 +25,7 @@ Version : 0.1
                 width: opt.width,
                 height: opt.height,
             })
-            
+
             //step 3 : show/prepare arya content div
             var contentel = el.find(".arya-content")
 
@@ -33,7 +33,7 @@ Version : 0.1
             var i = 1 // counter for slider
                 //hack
                 // run first slide while waiting for interval to kick in
-           
+
             $(contentel).html(slidearray[0]);
             var aryaslide = function () {
                 el.find(".active").removeClass("active");
@@ -53,13 +53,14 @@ Version : 0.1
 
                     //var k = i - 1;
                     //$("#page" + k).removeClass("active");
-                    
+
                     $("#page" + i).addClass("active");
                     console.log(i);
                     i++;
-                } else {
-                   
-                    i = 0;
+                    if (i == slidearray.length) {
+                        
+                        i = 0;
+                    }
                 }
 
             }
@@ -81,16 +82,15 @@ Version : 0.1
             }
             //first page must be active on slider start
             $("#page0").addClass("active");
-        
+
             //Pagination options
-            if(opt.pagination == false)
-            {
-              $("#arya-pagination").hide();
+            if (opt.pagination == false) {
+                $("#arya-pagination").hide();
             }
-           //Auto start Option
-            if(opt.autostart == false){
-               clearInterval(timer)
-               //Todo : show play pause buttons
+            //Auto start Option
+            if (opt.autostart == false) {
+                clearInterval(timer)
+                //Todo : show play pause buttons
             }
 
             //Step 6 : Lets Handle Click Events
@@ -106,13 +106,13 @@ Version : 0.1
                     $(contentel).hide().html(slidearray[l]).slideDown(opt.slidespeed);
                     el.find(".active").removeClass("active");
                     $("#page" + l).addClass("active");
-                    i = parseInt(l)+1;
-                    
+                    i = parseInt(l) + 1;
+
                     //if optostart is false then this part is not needed
-                    if(opt.autostart == true){
-                    clearInterval(timer);
-                    
-                    timer = setInterval(aryaslide, opt.slideduration);
+                    if (opt.autostart == true) {
+                        clearInterval(timer);
+
+                        timer = setInterval(aryaslide, opt.slideduration);
                     }
 
                 }
@@ -128,9 +128,9 @@ Version : 0.1
         slideduration: 3000, //time for each slide (in milliseconds)
         slidespeed: 1000, // slide transition speed(in milliseconds)
         transitioneffect: "slideDown", //current options : fadein,slideup,slidedown(more work needed here)
-        pagination : true, // show pagination true / false
-        autostart : false // start slide on page load true false
-        
+        pagination: true, // show pagination true / false
+        autostart: true // start slide on page load true false
+
     }
 
     //Main function
