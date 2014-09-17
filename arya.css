@@ -1,8 +1,6 @@
-html {} body {} .arya-slider {
+.arya-slider {
     margin: 0 auto;
-    width: 800px;
-    height: 400px;
-    border: 2px solid #f8e5e5;
+    border: 0px solid #f8e5e5;
     position: relative;
     overflow: hidden;
 }

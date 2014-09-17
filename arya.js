@@ -20,11 +20,12 @@ Version : 0.1
                 slidearray.push(elem);
 
             });
-            //step 2 : hide arya-slide (done in css
+            //step 2 :  options heigh and width
             el.css({
                 width: opt.width,
                 height: opt.height,
             })
+            
             //step 3 : show/prepare arya content div
             var contentel = el.find(".arya-content")
 
@@ -35,6 +36,7 @@ Version : 0.1
            
             $(contentel).html(slidearray[0]);
             var aryaslide = function () {
+                el.find(".active").removeClass("active");
                 if (i < slidearray.length) {
 
                     //clear content 
@@ -49,14 +51,14 @@ Version : 0.1
                     // $(contentel).hide().html(slidearray[i])[target](opt.slidespeed);
                     //                        }
 
-                    var k = i - 1;
-                    $("#page" + k).removeClass("active");
+                    //var k = i - 1;
+                    //$("#page" + k).removeClass("active");
+                    
                     $("#page" + i).addClass("active");
-
+                    console.log(i);
                     i++;
                 } else {
-                    var k = i - 1;
-                    $("#page" + k).removeClass("active");
+                   
                     i = 0;
                 }
 
@@ -77,21 +79,41 @@ Version : 0.1
                 var j = k + 1
                 $("#arya-pagination").append('<a href="#" id="page' + k + '" class="page">' + j + '</a>')
             }
+            //first page must be active on slider start
             $("#page0").addClass("active");
+        
+            //Pagination options
+            if(opt.pagination == false)
+            {
+              $("#arya-pagination").hide();
+            }
+           //Auto start Option
+            if(opt.autostart == false){
+               clearInterval(timer)
+               //Todo : show play pause buttons
+            }
 
             //Step 6 : Lets Handle Click Events
             el.click(function (e) {
                 if (e.target.className.indexOf('page') !== -1) {
+                    //we handle page clicks here 
+                    //the code first gets the clicked id,then splits it to get the number(page)
+                    //then we set the content to that page including the active styles.
+                    //then we stop the timer(clear interval), reset the timer(i) to the next page
+                    //and start the timer again
                     var spli = e.target.id.split('e');
                     var l = spli[1];
                     $(contentel).hide().html(slidearray[l]).slideDown(opt.slidespeed);
-                    var k = i - 1;
-                    $("#page" + k).removeClass("active");
+                    el.find(".active").removeClass("active");
                     $("#page" + l).addClass("active");
-
+                    i = parseInt(l)+1;
+                    
+                    //if optostart is false then this part is not needed
+                    if(opt.autostart == true){
                     clearInterval(timer);
-                    i = l;
+                    
                     timer = setInterval(aryaslide, opt.slideduration);
+                    }
 
                 }
             });
@@ -101,11 +123,14 @@ Version : 0.1
         }
         //Options and settings
     var defaultoptions = {
-        width: "900px", //width of slider
+        width: "100%", //width of slider
         height: "600px", //height of slider
         slideduration: 3000, //time for each slide (in milliseconds)
         slidespeed: 1000, // slide transition speed(in milliseconds)
         transitioneffect: "slideDown", //current options : fadein,slideup,slidedown(more work needed here)
+        pagination : true, // show pagination true / false
+        autostart : false // start slide on page load true false
+        
     }
 
     //Main function
